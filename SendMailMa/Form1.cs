@@ -38,11 +38,11 @@ namespace SendMailMa
             {
                 var db = new DATA.HelpdeskEntities();
 
-                DateTime today = Convert.ToDateTime("2025-12-1"); //Test 
+                //DateTime today = Convert.ToDateTime("2025-12-1"); //Test 
 
                 //------------------------------------------------------------------------------------------------------------------
                 //ส่งเมล์ ล่วงหน้า 1 เดือน เช่น หมดอายุ(EndDate) ของเดือนที่ 2 ให้แจ้งเตือนตั้งแต่เดือนที่ 1 โดยส่งวันที่ 1 ของทุกเดือน
-                //DateTime today = DateTime.Today;
+                DateTime today = DateTime.Today;
 
                 // ส่งเมล์ล่วงหน้า 1 เดือน โดยส่งวันที่ 1 ของทุกเดือน
                 if (today.Day == 1)
