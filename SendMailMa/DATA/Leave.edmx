@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="one_leaveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="one_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="emp_datenow" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="title_id" Type="int" Nullable="false" />
+          <Property Name="emp_firstname" Type="nvarchar" MaxLength="200" />
+          <Property Name="emp_lastname" Type="nvarchar" MaxLength="200" />
+          <Property Name="emp_idcard" Type="nvarchar" MaxLength="13" />
+          <Property Name="emp_fulladdress" Type="nvarchar" MaxLength="500" />
+          <Property Name="emp_tel" Type="nvarchar" MaxLength="20" />
+          <Property Name="emp_email" Type="nvarchar" MaxLength="200" />
+          <Property Name="emp_birthday" Type="datetime2" Precision="7" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="position_id" Type="int" Nullable="false" />
+          <Property Name="emp_type_id" Type="int" Nullable="false" />
+          <Property Name="emp_status_id" Type="int" Nullable="false" />
+          <Property Name="emp_start_working_day" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="emp_end_working_day" Type="datetime2" Precision="7" />
+          <Property Name="emp_sex_id" Type="int" />
+          <Property Name="emp_image" Type="image" />
+          <Property Name="emp_image_path" Type="nvarchar" MaxLength="500" />
+          <Property Name="approve_by" Type="int" />
+          <Property Name="emp_prorate_vacation_leave" Type="bit" />
+          <Property Name="emp_prorate_business_leave" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="one_leaveModelStoreContainer">
+          <EntitySet Name="one_employee" EntityType="Self.one_employee" Schema="employee" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="one_leaveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="one_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="emp_datenow" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="title_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_firstname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="emp_lastname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="emp_idcard" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="emp_fulladdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="emp_tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="emp_email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="emp_birthday" Type="DateTime" Precision="7" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="position_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_type_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_status_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_start_working_day" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="emp_end_working_day" Type="DateTime" Precision="7" />
+          <Property Name="emp_sex_id" Type="Int32" />
+          <Property Name="emp_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="emp_image_path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="approve_by" Type="Int32" />
+          <Property Name="emp_prorate_vacation_leave" Type="Boolean" />
+          <Property Name="emp_prorate_business_leave" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="one_leaveEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="one_employee" EntityType="Self.one_employee" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="one_leaveModelStoreContainer" CdmEntityContainer="one_leaveEntities">
+          <EntitySetMapping Name="one_employee">
+            <EntityTypeMapping TypeName="one_leaveModel.one_employee">
+              <MappingFragment StoreEntitySet="one_employee">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_code" ColumnName="emp_code" />
+                <ScalarProperty Name="emp_datenow" ColumnName="emp_datenow" />
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="emp_firstname" ColumnName="emp_firstname" />
+                <ScalarProperty Name="emp_lastname" ColumnName="emp_lastname" />
+                <ScalarProperty Name="emp_idcard" ColumnName="emp_idcard" />
+                <ScalarProperty Name="emp_fulladdress" ColumnName="emp_fulladdress" />
+                <ScalarProperty Name="emp_tel" ColumnName="emp_tel" />
+                <ScalarProperty Name="emp_email" ColumnName="emp_email" />
+                <ScalarProperty Name="emp_birthday" ColumnName="emp_birthday" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="emp_type_id" ColumnName="emp_type_id" />
+                <ScalarProperty Name="emp_status_id" ColumnName="emp_status_id" />
+                <ScalarProperty Name="emp_start_working_day" ColumnName="emp_start_working_day" />
+                <ScalarProperty Name="emp_end_working_day" ColumnName="emp_end_working_day" />
+                <ScalarProperty Name="emp_sex_id" ColumnName="emp_sex_id" />
+                <ScalarProperty Name="emp_image" ColumnName="emp_image" />
+                <ScalarProperty Name="emp_image_path" ColumnName="emp_image_path" />
+                <ScalarProperty Name="approve_by" ColumnName="approve_by" />
+                <ScalarProperty Name="emp_prorate_vacation_leave" ColumnName="emp_prorate_vacation_leave" />
+                <ScalarProperty Name="emp_prorate_business_leave" ColumnName="emp_prorate_business_leave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

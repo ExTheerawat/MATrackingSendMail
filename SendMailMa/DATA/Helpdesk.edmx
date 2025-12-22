@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HelpdeskModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TRANMA_D">
+          <Key>
+            <PropertyRef Name="TRD_KEY" />
+          </Key>
+          <Property Name="TRD_KEY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TRD_TRH" Type="int" />
+          <Property Name="TRD_CREATE_DATE" Type="datetime" />
+          <Property Name="TRD_CREATE_BY" Type="int" />
+          <Property Name="TRD_UPDATE_DATE" Type="datetime" />
+          <Property Name="TRD_UPDATE_BY" Type="int" />
+          <Property Name="TRD_IS_DELETE" Type="bit" />
+          <Property Name="TRD_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_BRAND" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRD_PRODUCT_ITEM" Type="nvarchar(max)" />
+          <Property Name="TRD_WARRANTY" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_QTY" Type="int" />
+          <Property Name="TRD_WAR" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRD_STATUS" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_STATUS_VALUE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_START_DATE" Type="datetime" />
+          <Property Name="TRD_END_DATE" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Helpdesk.dbo.VW_GetEmployeeReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_GetEmployeeReport">
+          <Key>
+            <PropertyRef Name="emp_id" />
+            <PropertyRef Name="emp_datenow" />
+            <PropertyRef Name="title_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_email" Type="nvarchar" MaxLength="200" />
+          <Property Name="emp_datenow" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="title_id" Type="int" Nullable="false" />
+          <Property Name="emp_firstname" Type="nvarchar" MaxLength="200" />
+          <Property Name="emp_lastname" Type="nvarchar" MaxLength="200" />
+          <Property Name="name_eng" Type="nvarchar" MaxLength="201" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Helpdesk.dbo.VW_GetMA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_GetMA">
+          <Key>
+            <PropertyRef Name="TRH_KEY" />
+          </Key>
+          <Property Name="TRH_KEY" Type="int" Nullable="false" />
+          <Property Name="TRH_CREATE_DATE" Type="datetime" />
+          <Property Name="TRH_CREATE_BY" Type="int" />
+          <Property Name="TRH_UPDATE_DATE" Type="datetime" />
+          <Property Name="TRH_UPDATE_BY" Type="int" />
+          <Property Name="TRH_PO_NO" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_CUS_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_END_USER" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_PROJECT_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_PROJECT_CODE" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_AE_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRH_VEN_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="TRD_BRAND" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRD_STATUS" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_STATUS_VALUE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRH_REMARK" Type="nvarchar" MaxLength="500" />
+          <Property Name="TRD_START_DATE" Type="datetime" />
+          <Property Name="TRD_END_DATE" Type="datetime" />
+          <Property Name="TRD_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_PRODUCT_ITEM" Type="nvarchar(max)" />
+          <Property Name="TRD_QTY" Type="int" />
+          <Property Name="TRD_WARRANTY" Type="nvarchar" MaxLength="50" />
+          <Property Name="TRD_WAR" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRSN_CODE" Type="nvarchar(max)" />
+          <Property Name="TRH_TYPE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Helpdesk.dbo.VW_GetMailCC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_GetMailCC">
+          <Key>
+            <PropertyRef Name="MAIL_KEY" />
+          </Key>
+          <Property Name="MAIL_KEY" Type="int" Nullable="false" />
+          <Property Name="HelpEmp" Type="int" />
+          <Property Name="Employee" Type="nvarchar" MaxLength="501" />
+          <Property Name="EmpMail" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmployeeCC" Type="nvarchar" MaxLength="501" />
+          <Property Name="EmpMailCC" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityContainer Name="HelpdeskModelStoreContainer">
+          <EntitySet Name="TRANMA_D" EntityType="Self.TRANMA_D" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW_GetEmployeeReport" EntityType="Self.VW_GetEmployeeReport" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VW_GetEmployeeReport].[emp_id] AS [emp_id], 
+[VW_GetEmployeeReport].[emp_email] AS [emp_email], 
+[VW_GetEmployeeReport].[emp_datenow] AS [emp_datenow], 
+[VW_GetEmployeeReport].[title_id] AS [title_id], 
+[VW_GetEmployeeReport].[emp_firstname] AS [emp_firstname], 
+[VW_GetEmployeeReport].[emp_lastname] AS [emp_lastname], 
+[VW_GetEmployeeReport].[name_eng] AS [name_eng]
+FROM [dbo].[VW_GetEmployeeReport] AS [VW_GetEmployeeReport]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_GetMA" EntityType="Self.VW_GetMA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VW_GetMA].[TRH_KEY] AS [TRH_KEY], 
+[VW_GetMA].[TRH_CREATE_DATE] AS [TRH_CREATE_DATE], 
+[VW_GetMA].[TRH_CREATE_BY] AS [TRH_CREATE_BY], 
+[VW_GetMA].[TRH_UPDATE_DATE] AS [TRH_UPDATE_DATE], 
+[VW_GetMA].[TRH_UPDATE_BY] AS [TRH_UPDATE_BY], 
+[VW_GetMA].[TRH_PO_NO] AS [TRH_PO_NO], 
+[VW_GetMA].[TRH_CUS_NAME] AS [TRH_CUS_NAME], 
+[VW_GetMA].[TRH_END_USER] AS [TRH_END_USER], 
+[VW_GetMA].[TRH_PROJECT_NAME] AS [TRH_PROJECT_NAME], 
+[VW_GetMA].[TRH_PROJECT_CODE] AS [TRH_PROJECT_CODE], 
+[VW_GetMA].[TRH_AE_NAME] AS [TRH_AE_NAME], 
+[VW_GetMA].[TRH_VEN_NAME] AS [TRH_VEN_NAME], 
+[VW_GetMA].[TRD_BRAND] AS [TRD_BRAND], 
+[VW_GetMA].[TRD_STATUS] AS [TRD_STATUS], 
+[VW_GetMA].[TRD_STATUS_VALUE] AS [TRD_STATUS_VALUE], 
+[VW_GetMA].[TRH_REMARK] AS [TRH_REMARK], 
+[VW_GetMA].[TRD_START_DATE] AS [TRD_START_DATE], 
+[VW_GetMA].[TRD_END_DATE] AS [TRD_END_DATE], 
+[VW_GetMA].[TRD_CODE] AS [TRD_CODE], 
+[VW_GetMA].[TRD_PRODUCT_ITEM] AS [TRD_PRODUCT_ITEM], 
+[VW_GetMA].[TRD_QTY] AS [TRD_QTY], 
+[VW_GetMA].[TRD_WARRANTY] AS [TRD_WARRANTY], 
+[VW_GetMA].[TRD_WAR] AS [TRD_WAR], 
+[VW_GetMA].[TRSN_CODE] AS [TRSN_CODE], 
+[VW_GetMA].[TRH_TYPE] AS [TRH_TYPE]
+FROM [dbo].[VW_GetMA] AS [VW_GetMA]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_GetMailCC" EntityType="Self.VW_GetMailCC" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[VW_GetMailCC].[MAIL_KEY] AS [MAIL_KEY], 
+[VW_GetMailCC].[HelpEmp] AS [HelpEmp], 
+[VW_GetMailCC].[Employee] AS [Employee], 
+[VW_GetMailCC].[EmpMail] AS [EmpMail], 
+[VW_GetMailCC].[EmployeeCC] AS [EmployeeCC], 
+[VW_GetMailCC].[EmpMailCC] AS [EmpMailCC]
+FROM [dbo].[VW_GetMailCC] AS [VW_GetMailCC]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HelpdeskModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HelpdeskEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TRANMA_D" EntityType="HelpdeskModel.TRANMA_D" />
+          <EntitySet Name="VW_GetMA" EntityType="HelpdeskModel.VW_GetMA" />
+          <EntitySet Name="VW_GetEmployeeReport" EntityType="HelpdeskModel.VW_GetEmployeeReport" />
+          <EntitySet Name="VW_GetMailCC" EntityType="HelpdeskModel.VW_GetMailCC" />
+        </EntityContainer>
+        <EntityType Name="TRANMA_D">
+          <Key>
+            <PropertyRef Name="TRD_KEY" />
+          </Key>
+          <Property Name="TRD_KEY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TRD_TRH" Type="Int32" />
+          <Property Name="TRD_CREATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRD_CREATE_BY" Type="Int32" />
+          <Property Name="TRD_UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRD_UPDATE_BY" Type="Int32" />
+          <Property Name="TRD_IS_DELETE" Type="Boolean" />
+          <Property Name="TRD_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_PRODUCT_ITEM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_WARRANTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_QTY" Type="Int32" />
+          <Property Name="TRD_WAR" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_BRAND" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_STATUS_VALUE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_START_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRD_END_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="VW_GetMA">
+          <Key>
+            <PropertyRef Name="TRH_KEY" />
+          </Key>
+          <Property Name="TRH_KEY" Type="Int32" Nullable="false" />
+          <Property Name="TRH_CREATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRH_CREATE_BY" Type="Int32" />
+          <Property Name="TRH_UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRH_UPDATE_BY" Type="Int32" />
+          <Property Name="TRH_PO_NO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_CUS_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_END_USER" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_PROJECT_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_PROJECT_CODE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_AE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_VEN_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_BRAND" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_STATUS_VALUE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_REMARK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_START_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRD_END_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TRD_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_PRODUCT_ITEM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_QTY" Type="Int32" />
+          <Property Name="TRD_WARRANTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TRD_WAR" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRSN_CODE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TRH_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VW_GetEmployeeReport">
+          <Key>
+            <PropertyRef Name="emp_id" />
+            <PropertyRef Name="emp_datenow" />
+            <PropertyRef Name="title_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="emp_datenow" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="title_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_firstname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="emp_lastname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="name_eng" Type="String" MaxLength="201" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VW_GetMailCC">
+          <Key>
+            <PropertyRef Name="MAIL_KEY" />
+          </Key>
+          <Property Name="MAIL_KEY" Type="Int32" Nullable="false" />
+          <Property Name="HelpEmp" Type="Int32" />
+          <Property Name="Employee" Type="String" MaxLength="501" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeCC" Type="String" MaxLength="501" FixedLength="false" Unicode="true" />
+          <Property Name="EmpMailCC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HelpdeskModelStoreContainer" CdmEntityContainer="HelpdeskEntities">
+          <EntitySetMapping Name="TRANMA_D">
+            <EntityTypeMapping TypeName="HelpdeskModel.TRANMA_D">
+              <MappingFragment StoreEntitySet="TRANMA_D">
+                <ScalarProperty Name="TRD_END_DATE" ColumnName="TRD_END_DATE" />
+                <ScalarProperty Name="TRD_START_DATE" ColumnName="TRD_START_DATE" />
+                <ScalarProperty Name="TRD_STATUS_VALUE" ColumnName="TRD_STATUS_VALUE" />
+                <ScalarProperty Name="TRD_STATUS" ColumnName="TRD_STATUS" />
+                <ScalarProperty Name="TRD_BRAND" ColumnName="TRD_BRAND" />
+                <ScalarProperty Name="TRD_WAR" ColumnName="TRD_WAR" />
+                <ScalarProperty Name="TRD_QTY" ColumnName="TRD_QTY" />
+                <ScalarProperty Name="TRD_WARRANTY" ColumnName="TRD_WARRANTY" />
+                <ScalarProperty Name="TRD_PRODUCT_ITEM" ColumnName="TRD_PRODUCT_ITEM" />
+                <ScalarProperty Name="TRD_CODE" ColumnName="TRD_CODE" />
+                <ScalarProperty Name="TRD_IS_DELETE" ColumnName="TRD_IS_DELETE" />
+                <ScalarProperty Name="TRD_UPDATE_BY" ColumnName="TRD_UPDATE_BY" />
+                <ScalarProperty Name="TRD_UPDATE_DATE" ColumnName="TRD_UPDATE_DATE" />
+                <ScalarProperty Name="TRD_CREATE_BY" ColumnName="TRD_CREATE_BY" />
+                <ScalarProperty Name="TRD_CREATE_DATE" ColumnName="TRD_CREATE_DATE" />
+                <ScalarProperty Name="TRD_TRH" ColumnName="TRD_TRH" />
+                <ScalarProperty Name="TRD_KEY" ColumnName="TRD_KEY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_GetMA">
+            <EntityTypeMapping TypeName="HelpdeskModel.VW_GetMA">
+              <MappingFragment StoreEntitySet="VW_GetMA">
+                <ScalarProperty Name="TRH_TYPE" ColumnName="TRH_TYPE" />
+                <ScalarProperty Name="TRSN_CODE" ColumnName="TRSN_CODE" />
+                <ScalarProperty Name="TRD_WAR" ColumnName="TRD_WAR" />
+                <ScalarProperty Name="TRD_WARRANTY" ColumnName="TRD_WARRANTY" />
+                <ScalarProperty Name="TRD_QTY" ColumnName="TRD_QTY" />
+                <ScalarProperty Name="TRD_PRODUCT_ITEM" ColumnName="TRD_PRODUCT_ITEM" />
+                <ScalarProperty Name="TRD_CODE" ColumnName="TRD_CODE" />
+                <ScalarProperty Name="TRD_END_DATE" ColumnName="TRD_END_DATE" />
+                <ScalarProperty Name="TRD_START_DATE" ColumnName="TRD_START_DATE" />
+                <ScalarProperty Name="TRH_REMARK" ColumnName="TRH_REMARK" />
+                <ScalarProperty Name="TRD_STATUS_VALUE" ColumnName="TRD_STATUS_VALUE" />
+                <ScalarProperty Name="TRD_STATUS" ColumnName="TRD_STATUS" />
+                <ScalarProperty Name="TRD_BRAND" ColumnName="TRD_BRAND" />
+                <ScalarProperty Name="TRH_VEN_NAME" ColumnName="TRH_VEN_NAME" />
+                <ScalarProperty Name="TRH_AE_NAME" ColumnName="TRH_AE_NAME" />
+                <ScalarProperty Name="TRH_PROJECT_CODE" ColumnName="TRH_PROJECT_CODE" />
+                <ScalarProperty Name="TRH_PROJECT_NAME" ColumnName="TRH_PROJECT_NAME" />
+                <ScalarProperty Name="TRH_END_USER" ColumnName="TRH_END_USER" />
+                <ScalarProperty Name="TRH_CUS_NAME" ColumnName="TRH_CUS_NAME" />
+                <ScalarProperty Name="TRH_PO_NO" ColumnName="TRH_PO_NO" />
+                <ScalarProperty Name="TRH_UPDATE_BY" ColumnName="TRH_UPDATE_BY" />
+                <ScalarProperty Name="TRH_UPDATE_DATE" ColumnName="TRH_UPDATE_DATE" />
+                <ScalarProperty Name="TRH_CREATE_BY" ColumnName="TRH_CREATE_BY" />
+                <ScalarProperty Name="TRH_CREATE_DATE" ColumnName="TRH_CREATE_DATE" />
+                <ScalarProperty Name="TRH_KEY" ColumnName="TRH_KEY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_GetEmployeeReport">
+            <EntityTypeMapping TypeName="HelpdeskModel.VW_GetEmployeeReport">
+              <MappingFragment StoreEntitySet="VW_GetEmployeeReport">
+                <ScalarProperty Name="name_eng" ColumnName="name_eng" />
+                <ScalarProperty Name="emp_lastname" ColumnName="emp_lastname" />
+                <ScalarProperty Name="emp_firstname" ColumnName="emp_firstname" />
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="emp_datenow" ColumnName="emp_datenow" />
+                <ScalarProperty Name="emp_email" ColumnName="emp_email" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_GetMailCC">
+            <EntityTypeMapping TypeName="HelpdeskModel.VW_GetMailCC">
+              <MappingFragment StoreEntitySet="VW_GetMailCC">
+                <ScalarProperty Name="EmpMailCC" ColumnName="EmpMailCC" />
+                <ScalarProperty Name="EmployeeCC" ColumnName="EmployeeCC" />
+                <ScalarProperty Name="EmpMail" ColumnName="EmpMail" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="HelpEmp" ColumnName="HelpEmp" />
+                <ScalarProperty Name="MAIL_KEY" ColumnName="MAIL_KEY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
