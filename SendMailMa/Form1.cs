@@ -37,12 +37,11 @@ namespace SendMailMa
             try
             {
                 var db = new DATA.HelpdeskEntities();
-
-                //DateTime today = Convert.ToDateTime("2025-12-1"); //Test 
+                //DateTime today = Convert.ToDateTime("2026-03-01"); //Test 
 
                 //------------------------------------------------------------------------------------------------------------------
                 //ส่งเมล์ ล่วงหน้า 1 เดือน เช่น หมดอายุ(EndDate) ของเดือนที่ 2 ให้แจ้งเตือนตั้งแต่เดือนที่ 1 โดยส่งวันที่ 1 ของทุกเดือน
-                DateTime today = DateTime.Today;
+               DateTime today = DateTime.Today;
 
                 // ส่งเมล์ล่วงหน้า 1 เดือน โดยส่งวันที่ 1 ของทุกเดือน
                 if (today.Day == 1)
@@ -246,7 +245,7 @@ namespace SendMailMa
 
                         message.Body = builder.ToMessageBody();
 
-                        // ส่งเมล
+                        //ส่งเมล
                         try
                         {
                             if (result.Count != 0)
@@ -574,10 +573,6 @@ namespace SendMailMa
                             return;
                         }
 
-                        string GetEmail = employee.emp_email;
-
-                        var GetEmailCC = (from x in db.VW_GetMailCC where x.EmpMail == GetEmail select x.EmpMailCC).ToList();
-
                         // สร้าง Excel
                         var workbook = new XLWorkbook();
                         var worksheet = workbook.Worksheets.Add("MA");
@@ -690,15 +685,17 @@ namespace SendMailMa
                         workbook.SaveAs(stream);
                         stream.Position = 0;
 
+                        string GetEmail = employee.emp_email;
+
+                        var GetEmailCC = (from x in db.VW_GetMailCC where x.EmpMail == GetEmail select x.EmpMailCC).ToList();
+
                         // เตรียม email
                         var message = new MimeMessage();
                         message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
 
                         //Test
                         //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("khaimook@penso.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("kanlayanee@penso.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("Ploypailin@penso.co.th"));
+
 
                         //Production
                         message.To.Add(MailboxAddress.Parse(GetEmail));
