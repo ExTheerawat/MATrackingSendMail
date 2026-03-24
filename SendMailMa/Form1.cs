@@ -37,7 +37,7 @@ namespace SendMailMa
             try
             {
                 var db = new DATA.HelpdeskEntities();
-                //DateTime today = Convert.ToDateTime("2026-03-01"); //Test 
+                //DateTime today = Convert.ToDateTime("2026-03-15"); //Test 
 
                 //------------------------------------------------------------------------------------------------------------------
                 //ส่งเมล์ ล่วงหน้า 1 เดือน เช่น หมดอายุ(EndDate) ของเดือนที่ 2 ให้แจ้งเตือนตั้งแต่เดือนที่ 1 โดยส่งวันที่ 1 ของทุกเดือน
@@ -225,7 +225,7 @@ namespace SendMailMa
                             message.To.Add(MailboxAddress.Parse(item));
                         }
 
-                        message.Subject = "MA TRACKING";
+                        message.Subject = "MA TRACKING(ล่วงหน้า 1 เดือน)";
 
                         var builder = new BodyBuilder
                         {
@@ -483,7 +483,7 @@ namespace SendMailMa
                             {
                                 message.To.Add(MailboxAddress.Parse(item));
                             }
-                            message.Subject = "MA TRACKING";
+                            message.Subject = "MA TRACKING(ล่วงหน้า 2 เดือน แบบ Quarter)";
 
                             var builder = new BodyBuilder
                             {
@@ -528,7 +528,7 @@ namespace SendMailMa
 
 
                 //------------------------------------------------------------------------------------------------------------------
-                //ส่งข้อมูลทุกวันที่ 15 ของเดือน เช่น วันนี้ 12 มกราคม ให้ส่งข้อมูล เดือนก่อนหน้าเดือนปัจจุบันลงไปทั้งหมด ที่สถานะเป็น Pending
+                //ส่งข้อมูลทุกวันที่ 15 ของเดือน เช่น วันนี้ 15 มกราคม ให้ส่งข้อมูล เดือนก่อนหน้าเดือนปัจจุบันลงไปทั้งหมด ที่สถานะเป็น Pending
                 if (today.Day == 15)
                 //if (true)
                 {
@@ -703,7 +703,7 @@ namespace SendMailMa
                         {
                             message.To.Add(MailboxAddress.Parse(item));
                         }
-                        message.Subject = "MA TRACKING";
+                        message.Subject = "MA TRACKING (Recheck 15 วัน Pending)";
 
                         var builder = new BodyBuilder
                         {
@@ -840,11 +840,11 @@ namespace SendMailMa
                             message.Cc.Add(MailboxAddress.Parse(cc));
                         }
 
-                        message.Subject = "MA TRACKING";
+                        message.Subject = "MA TRACKING (Pending And Not-Renewed)";
 
                         var builder = new BodyBuilder
                         {
-                            TextBody = $"เรียนคุณ {AEName}\nไฟล์แนบเอกสารครบกำหนดหมดอายุ (MA) ในรูปแบบ Excel\nกรุณาตรวจสอบข้อมูลในระบบ\nหมายเหตุ: เป็น Email อัตโนมัติห้ามตอบกลับ!"
+                            TextBody = $"เรียนคุณ {AEName}\nไฟล์แนบเอกสารครบกำหนดหมดอายุ (MA) ในรูปแบบ Excel\nกรุณาตรวจสอบข้อมูลในระบบ\nหมายเหตุ: เป็นข้อมูลที่เป็นสถานะ Pending และ Not-Renewed! "
                         };
 
                         builder.HtmlBody = $@"
