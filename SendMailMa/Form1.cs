@@ -41,7 +41,7 @@ namespace SendMailMa
 
                 //------------------------------------------------------------------------------------------------------------------
                 //ส่งเมล์ ล่วงหน้า 1 เดือน เช่น หมดอายุ(EndDate) ของเดือนที่ 2 ให้แจ้งเตือนตั้งแต่เดือนที่ 1 โดยส่งวันที่ 1 ของทุกเดือน
-               DateTime today = DateTime.Today;
+                DateTime today = DateTime.Today;
 
                 // ส่งเมล์ล่วงหน้า 1 เดือน โดยส่งวันที่ 1 ของทุกเดือน
                 if (today.Day == 1)
@@ -238,7 +238,7 @@ namespace SendMailMa
                                             <p>กรุณาตรวจสอบข้อมูลในระบบ 
                                                <a href=""{url}"">{url}</a>
                                             </p>
-                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ: เป็น Email อัตโนมัติห้ามตอบกลับ!</strong></p>";
+                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ:เป็นข้อมูล สถานะ Pending และ Not-Renewed ล่วงหน้า 1 เดือน</strong></p>";
 
                         builder.Attachments.Add("MA_End_'" + shortMonthName + "'_'" + mTargetYear + "'.xlsx", stream.ToArray(),
                             new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
@@ -334,16 +334,16 @@ namespace SendMailMa
                             : AeName;
 
                             result = db.VW_GetMA
-                                .Where(x => (x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null)  &&
+                                .Where(x => (x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null) &&
                                             x.TRD_END_DATE >= qStartDate &&
                                             x.TRD_END_DATE < qEndDateExclusive &&
                                             x.TRH_AE_NAME == maAeName)
                                 .ToList();
 
-                         
+
                             string url = "http://support.penso.co.th:84/";
                             var employee = db.VW_GetEmployeeReport.FirstOrDefault(x => x.name_eng == searchAeName);
-                        
+
                             if (employee == null || string.IsNullOrWhiteSpace(employee.emp_email))
                             {
                                 Console.WriteLine("ไม่พบอีเมลของ AE: " + searchAeName);
@@ -361,7 +361,7 @@ namespace SendMailMa
 
                             var titleRange = worksheet.Range(1, 1, 1, 18); // A1:R1 (18 คอลัมน์)
                             titleRange.Merge();
-                            titleRange.Value = "MA Tracking(ล่วงหน้า 2 เดือนแบบ Quarter)";
+                            titleRange.Value = "MA Tracking(ล่วงหน้า 2 เดือน แบบ Quarter)";
                             titleRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                             titleRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                             titleRange.Style.Fill.BackgroundColor = XLColor.Green;     // พื้นหลังเขียว
@@ -496,7 +496,7 @@ namespace SendMailMa
                                             <p>กรุณาตรวจสอบข้อมูลในระบบ 
                                                <a href=""{url}"">{url}</a>
                                             </p>
-                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ: เป็น Email อัตโนมัติห้ามตอบกลับ!</strong></p>";
+                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ:เป็นข้อมูล สถานะ Pending และ Not-Renewed ล่วงหน้า 2 เดือน แบบ Quuarter</strong></p>";
 
                             builder.Attachments.Add("MA_END_" + Q + "_" + qYear + ".xlsx", stream.ToArray(),
                                 new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
@@ -579,7 +579,7 @@ namespace SendMailMa
 
                         var titleRange = worksheet.Range(1, 1, 1, 18); // A1:R1 (18 คอลัมน์)
                         titleRange.Merge();
-                        titleRange.Value = "MA Tracking(Recheck 15 วัน)";
+                        titleRange.Value = "MA TRACKING (Pending ย้อนหลัง 1 เดือนทั้งหมด)";
                         titleRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                         titleRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                         titleRange.Style.Fill.BackgroundColor = XLColor.Green;     // พื้นหลังเขียว
@@ -703,7 +703,7 @@ namespace SendMailMa
                         {
                             message.To.Add(MailboxAddress.Parse(item));
                         }
-                        message.Subject = "MA TRACKING (Recheck 15 วัน Pending)";
+                        message.Subject = "MA TRACKING (Pending ย้อนหลัง 1 เดือนทั้งหมด)";
 
                         var builder = new BodyBuilder
                         {
@@ -716,7 +716,7 @@ namespace SendMailMa
                                             <p>กรุณาตรวจสอบข้อมูลในระบบ 
                                                <a href=""{url}"">{url}</a>
                                             </p>
-                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ: เป็น Email อัตโนมัติห้ามตอบกลับ!</strong></p>";
+                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ:เป็นข้อมูล สถานะ Pending ย้อนหลัง 1 เดือนทั้งหมด</strong></p>";
 
                         builder.Attachments.Add("MA_End_Before_" + shortMonthName + "_" + year + ".xlsx", stream.ToArray(),
                             new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
@@ -758,146 +758,149 @@ namespace SendMailMa
                     string shortMonthName = today.ToString("MMM", CultureInfo.CreateSpecificCulture("en-US"));
                     int year = today.Year;
 
-                    var aeNamesMonth = db.VW_GetMA
-                        .Where(x =>
-                            ((x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null) ||
-                            x.TRD_STATUS_VALUE == "0") &&
-                            x.TRD_END_DATE <= GetMonthEnd
-                        )
-                        .Select(x => x.TRH_AE_NAME)
-                        .Where(name => !string.IsNullOrEmpty(name))
-                        .Distinct()
-                        .ToList();
+                    //var aeNamesMonth = db.VW_GetMA
+                    //    .Where(x =>
+                    //        ((x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null) ||
+                    //        x.TRD_STATUS_VALUE == "0") &&
+                    //        x.TRD_END_DATE <= GetMonthEnd
+                    //    )
+                    //    .Select(x => x.TRH_AE_NAME)
+                    //    .Where(name => !string.IsNullOrEmpty(name))
+                    //    .Distinct()
+                    //    .ToList();
 
                     var resultPending = new List<VW_GetMA>();
                     var resultNotRenewed = new List<VW_GetMA>();
                     string url = "http://support.penso.co.th:84/";
-                    foreach (var AeName in aeNamesMonth)
-                    {
-                        var maAeName = AeName;
-                        var searchAeName = (AeName == "P Enterprise" || AeName == "CC Thai")
-                        ? "Kanlayanee" //ที่ส่งไปหาพี่นุ้ยเพราะ บ. ไม่มี Email
-                        : AeName;
+                    //foreach (var AeName in aeNamesMonth)
+                    //{
+                    //var maAeName = AeName;
+                    //var searchAeName = (AeName == "P Enterprise" || AeName == "CC Thai")
+                    //? "Kanlayanee" //ที่ส่งไปหาพี่นุ้ยเพราะ บ. ไม่มี Email
+                    //: AeName;
 
-                        // ดึงข้อมูล
-                        resultPending = db.VW_GetMA
-                            .Where(x =>
-                                (x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null) &&
-                                x.TRD_END_DATE <= GetMonthEnd &&
-                                x.TRH_AE_NAME == maAeName
-                            )
-                            .ToList();
+                    // ดึงข้อมูล
+                    resultPending = db.VW_GetMA
+                        .Where(x =>
+                            (x.TRD_STATUS_VALUE == "" || x.TRD_STATUS_VALUE == null) &&
+                            x.TRD_END_DATE <= GetMonthEnd
+                        //&& x.TRH_AE_NAME == maAeName
+                        )
+                        .OrderBy(x => x.TRH_AE_NAME)
+                        .ThenBy(x => x.TRD_END_DATE)
+                        .ToList();
 
-                        resultNotRenewed = db.VW_GetMA
+                    resultNotRenewed = db.VW_GetMA
                             .Where(x =>
                                 x.TRD_STATUS_VALUE == "0" &&
                                   x.TRD_END_DATE >= monthStart &&
-                                  x.TRD_END_DATE < nextMonthStart &&
-                                x.TRH_AE_NAME == maAeName
+                                  x.TRD_END_DATE < nextMonthStart
+                            //&& x.TRH_AE_NAME == maAeName
                             )
-                            .ToList();
+                             .OrderBy(x => x.TRH_AE_NAME)
+                             .ThenBy(x => x.TRD_END_DATE)
+                             .ToList();
 
-                        // ถ้าไม่มีทั้ง Pending และ Not-Renewed → ไม่ต้องสร้างเมล
-                        if (resultPending.Count == 0 && resultNotRenewed.Count == 0)
-                        {
-                            continue;
-                        }
+                    // ถ้าไม่มีทั้ง Pending และ Not-Renewed → ไม่ต้องสร้างเมล
+                    //if (resultPending.Count == 0 && resultNotRenewed.Count == 0)
+                    //{
+                    //    continue;
+                    //}
 
-                        // เลือก AE (ตอนนี้ fix เป็น emp_id = 9)
-                        string AEName = db.VW_GetEmployeeReport
-                                        .Where(x => x.emp_id == 9)   // ID พี่ต่อ
-                                        .Select(x => x.name_eng)
-                                        .Where(name => !string.IsNullOrEmpty(name))
-                                        .Distinct()
-                                        .SingleOrDefault();
+                    // เลือก AE (ตอนนี้ fix เป็น emp_id = 9)
+                    string AEName = db.VW_GetEmployeeReport
+                                    .Where(x => x.emp_id == 9)   // ID พี่ต่อ
+                                    .Select(x => x.name_eng)
+                                    .Where(name => !string.IsNullOrEmpty(name))
+                                    .Distinct()
+                                    .SingleOrDefault();
 
-                        var employee = db.VW_GetEmployeeReport.FirstOrDefault(x => x.name_eng == AEName);
-                        if (employee == null || string.IsNullOrWhiteSpace(employee.emp_email))
-                        {
-                            Console.WriteLine("ไม่พบอีเมลของ AE: " + AEName);
-                            continue;   // หรือ return; แล้วแต่ logic ที่ต้องการ
-                        }
+                    var employee = db.VW_GetEmployeeReport.FirstOrDefault(x => x.name_eng == AEName);
+                    //if (employee == null || string.IsNullOrWhiteSpace(employee.emp_email))
+                    //{
+                    //    Console.WriteLine("ไม่พบอีเมลของ AE: " + AEName);
+                    //    continue;   // หรือ return; แล้วแต่ logic ที่ต้องการ
+                    //}
 
-                        string GetEmail = employee.emp_email;
-                        var GetEmailCC = (from x in db.VW_GetMailCC
-                                          where x.EmpMail == GetEmail
-                                          select x.EmpMailCC).ToList();
+                    string GetEmail = employee.emp_email;
+                    var GetEmailCC = (from x in db.VW_GetMailCC
+                                      where x.EmpMail == GetEmail
+                                      select x.EmpMailCC).ToList();
 
-                        // เตรียม email
-                        var message = new MimeMessage();
-                        message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                    // เตรียม email
+                    var message = new MimeMessage();
+                    message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
 
-                        // Test
-                        //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("khaimook@penso.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("kanlayanee@penso.co.th"));
-                        //message.To.Add(MailboxAddress.Parse("Ploypailin@penso.co.th"));
+                    // Test
+                    //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
+                    //message.To.Add(MailboxAddress.Parse("khaimook@penso.co.th"));
+                    //message.To.Add(MailboxAddress.Parse("kanlayanee@penso.co.th"));
+                    //message.To.Add(MailboxAddress.Parse("Ploypailin@penso.co.th"));
 
-                        // Production (ปลดตอนใช้จริง)
-                        message.To.Add(MailboxAddress.Parse(GetEmail));
-                        foreach (var cc in GetEmailCC)
-                        {
-                            message.Cc.Add(MailboxAddress.Parse(cc));
-                        }
+                    // Production (ปลดตอนใช้จริง)
+                    message.To.Add(MailboxAddress.Parse(GetEmail));
+                    foreach (var cc in GetEmailCC)
+                    {
+                        message.Cc.Add(MailboxAddress.Parse(cc));
+                    }
 
-                        message.Subject = "MA TRACKING (Pending And Not-Renewed)";
+                    message.Subject = "MA TRACKING (Pending ย้อนหลัง 1 เดือนทั้งหมด และ Not-Renewed ย้อนหลัง 1 เดือน)";
 
-                        var builder = new BodyBuilder
-                        {
-                            TextBody = $"เรียนคุณ {AEName}\nไฟล์แนบเอกสารครบกำหนดหมดอายุ (MA) ในรูปแบบ Excel\nกรุณาตรวจสอบข้อมูลในระบบ\nหมายเหตุ: เป็นข้อมูลที่เป็นสถานะ Pending และ Not-Renewed! "
-                        };
+                    var builder = new BodyBuilder
+                    {
+                        TextBody = $"เรียนคุณ {AEName}\nไฟล์แนบเอกสารหมดอายุ (MA)\nกรุณาตรวจสอบข้อมูลในระบบ"
+                    };
 
-                        builder.HtmlBody = $@"
+                    builder.HtmlBody = $@"
                                             <p>เรียนคุณ {AEName}</p>
                                             <p>ไฟล์แนบเอกสารครบกำหนดหมดอายุ (MA) ในรูปแบบ Excel</p>
                                             <p>กรุณาตรวจสอบข้อมูลในระบบ 
                                                <a href=""{url}"">{url}</a>
                                             </p>
-                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ: เป็น Email อัตโนมัติห้ามตอบกลับ!</strong></p>";
+                                            <p><strong style=""color:#d32f2f;"">หมายเหตุ:แสดงข้อมูลสถานะ Pending ย้อนหลังเดือนปัจจุบันทั้งหมด และ Not-Renewed ย้อนหลัง 1 เดือน</strong></p>";
 
-                        // แนบไฟล์เฉพาะที่มีข้อมูลจริง ๆ
-                        if (resultPending.Count > 0)
-                        {
-                            var streamPending = CreateMaExcel(resultPending,
-                                "MA Tracking(Recheck 15 วัน) - Pending");
+                    // แนบไฟล์เฉพาะที่มีข้อมูลจริง ๆ
+                    if (resultPending.Count > 0)
+                    {
+                        var streamPending = CreateMaExcel(resultPending,
+                            "MA Tracking(Pending");
 
-                            builder.Attachments.Add(
-                                $"MA_END_Before_{shortMonthName}_{year}(Pending).xlsx",
-                                streamPending.ToArray(),
-                                new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-                        }
-
-                        if (resultNotRenewed.Count > 0)
-                        {
-                            var streamNotRenewed = CreateMaExcel(resultNotRenewed,
-                                "MA Tracking(Recheck 15 วัน) - Not Renewed");
-
-                            builder.Attachments.Add(
-                                $"MA_END_Before_{shortMonthName}_{year}(Not-Renewed).xlsx",
-                                streamNotRenewed.ToArray(),
-                                new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-                        }
-
-                        message.Body = builder.ToMessageBody();
-
-                        try
-                        {
-                            var smtp = new SmtpClient();
-                            await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                            await smtp.AuthenticateAsync("matrackingsystemccpbg@gmail.com", "vlkr knob dycv xunn");
-                            await smtp.SendAsync(message);
-                            await smtp.DisconnectAsync(true);
-
-                            Console.WriteLine("ส่งอีเมลสำเร็จ");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("ส่งอีเมลไม่สำเร็จ: " + ex.Message);
-                        }
+                        builder.Attachments.Add(
+                            $"MA_END_Before_{shortMonthName}_{year}(Pending).xlsx",
+                            streamPending.ToArray(),
+                            new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
                     }
 
+                    if (resultNotRenewed.Count > 0)
+                    {
+                        var streamNotRenewed = CreateMaExcel(resultNotRenewed,
+                            "MA Tracking(Not Renewed");
+
+                        builder.Attachments.Add(
+                            $"MA_END_Before_{shortMonthName}_{year}(Not-Renewed).xlsx",
+                            streamNotRenewed.ToArray(),
+                            new ContentType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+                    }
+
+                    message.Body = builder.ToMessageBody();
 
 
+                    //ส่งเมล
+                    try
+                    {
+                        var smtp = new SmtpClient();
+                        await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                        await smtp.AuthenticateAsync("matrackingsystemccpbg@gmail.com", "vlkr knob dycv xunn");
+                        await smtp.SendAsync(message);
+                        await smtp.DisconnectAsync(true);
+
+                        Console.WriteLine("ส่งอีเมลสำเร็จ");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("ส่งอีเมลไม่สำเร็จ: " + ex.Message);
+                    }
+                    //}
                 }
 
                 label1.Text = "ส่ง Email เรียบร้อย";
