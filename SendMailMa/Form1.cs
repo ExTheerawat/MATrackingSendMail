@@ -37,7 +37,7 @@ namespace SendMailMa
             try
             {
                 var db = new DATA.HelpdeskEntities();
-                //DateTime today = Convert.ToDateTime("2026-03-15"); //Test 
+                //DateTime today = Convert.ToDateTime("2026-05-01"); //Test 
 
                 //------------------------------------------------------------------------------------------------------------------
                 //ส่งเมล์ ล่วงหน้า 1 เดือน เช่น หมดอายุ(EndDate) ของเดือนที่ 2 ให้แจ้งเตือนตั้งแต่เดือนที่ 1 โดยส่งวันที่ 1 ของทุกเดือน
@@ -209,8 +209,7 @@ namespace SendMailMa
 
                         // เตรียม email
                         var message = new MimeMessage();
-                        //message.From.Add(MailboxAddress.Parse("serviceccthailand@gmail.com"));
-                        message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                        message.From.Add(new MailboxAddress("MA Tracking", "matrackingsystemccpbg@gmail.com"));
 
                         //Test
                         //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
@@ -469,7 +468,8 @@ namespace SendMailMa
 
                             // เตรียม email
                             var message = new MimeMessage();
-                            message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                            //message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                            message.From.Add(new MailboxAddress("MA Tracking", "matrackingsystemccpbg@gmail.com"));
 
                             //Test
                             //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
@@ -691,7 +691,8 @@ namespace SendMailMa
 
                         // เตรียม email
                         var message = new MimeMessage();
-                        message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                        //message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                        message.From.Add(new MailboxAddress("MA Tracking", "matrackingsystemccpbg@gmail.com"));
 
                         //Test
                         //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
@@ -829,7 +830,8 @@ namespace SendMailMa
 
                     // เตรียม email
                     var message = new MimeMessage();
-                    message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                    //message.From.Add(MailboxAddress.Parse("matrackingsystemccpbg@gmail.com"));
+                    message.From.Add(new MailboxAddress("MA Tracking", "matrackingsystemccpbg@gmail.com"));
 
                     // Test
                     //message.To.Add(MailboxAddress.Parse("theerawat@ccthailand.co.th"));
