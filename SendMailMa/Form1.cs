@@ -68,7 +68,7 @@ namespace SendMailMa
                         .ToList();
 
                     var result = new List<VW_GetMA>();
-                    string url = "http://support.penso.co.th:84/";
+                    string url = "https://support.penso.co.th/";
 
                     foreach (var AeName in aeNamesMonth)
                     {
@@ -340,7 +340,7 @@ namespace SendMailMa
                                 .ToList();
 
 
-                            string url = "http://support.penso.co.th:84/";
+                            string url = "https://support.penso.co.th/";
                             var employee = db.VW_GetEmployeeReport.FirstOrDefault(x => x.name_eng == searchAeName);
 
                             if (employee == null || string.IsNullOrWhiteSpace(employee.emp_email))
@@ -547,7 +547,7 @@ namespace SendMailMa
                         .ToList();
 
                     var result = new List<VW_GetMA>();
-                    string url = "http://support.penso.co.th:84/";
+                    string url = "https://support.penso.co.th/";
 
                     foreach (var AeName in aeNamesMonth)
                     {
@@ -772,7 +772,7 @@ namespace SendMailMa
 
                     var resultPending = new List<VW_GetMA>();
                     var resultNotRenewed = new List<VW_GetMA>();
-                    string url = "http://support.penso.co.th:84/";
+                    string url = "https://support.penso.co.th/";
                     //foreach (var AeName in aeNamesMonth)
                     //{
                     //var maAeName = AeName;
